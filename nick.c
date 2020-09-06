@@ -11,20 +11,21 @@ typedef struct tuple_s {
     struct tuple_s *next;
 } tuple;
 
-void sanitize(char *dst, char *src, size_t length);
-int strcut(char *dst, char *src, size_t length);
+int sanitize_comments(char *dst, char *src, size_t length);
 
 int main(void) {
     char str[] = "this /*demo*/ is a /*dummy*/ string";
 
     char *s = malloc(sizeof(str));
 
-    strcut(s,str,sizeof(str));
+    sanitize_comments(s,str,sizeof(str));
 
     printf("%s\n", s);
+
+    free(s);
 }
 
-int strcut(char *dst, char *src, size_t length) {
+int sanitize_comments(char *dst, char *src, size_t length) {
     int new_length = length;
     char *_src = src;
     char *_dst = dst;
